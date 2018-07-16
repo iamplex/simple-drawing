@@ -64,7 +64,7 @@
   import Draw from '../src/interaction/Draw.js'
 
   const
-    pad = new sd.Sketchpad('pad'),
+    pad = new Sketchpad('pad'),
 
     domExtend = document.getElementById('extend'),
     btnClear = document.getElementById('clear'),
@@ -84,7 +84,7 @@
       domExtend.style.display = 'none'
     }
 
-    pad.setDraw(new sd.interaction.Draw({
+    pad.setDraw(new Draw({
       type: typeValue,
       freehand: freehandValue,
       sides: sidesValue
