@@ -63,14 +63,18 @@
   import Sketchpad from '../src/instance/index.js'
   import Draw from '../src/interaction/Draw.js'
 
-  const
-    pad = new Sketchpad('pad'),
+  function $(selector) {
+    return document.getElementById(selector)
+  }
 
-    domExtend = document.getElementById('extend'),
-    btnClear = document.getElementById('clear'),
-    inputType = document.getElementById('draw-type'),
-    inputFreehand = document.getElementById('freehand'),
-    inputSides = document.getElementById('sides')
+  const
+    pad = new Sketchpad($('pad')),
+
+    domExtend = $('extend'),
+    btnClear = $('clear'),
+    inputType = $('draw-type'),
+    inputFreehand = $('freehand'),
+    inputSides = $('sides')
 
   function settingChange() {
     const

@@ -53,14 +53,18 @@
   import Line from '../src/geometry/Line.js'
   import Polygon from '../src/geometry/Polygon.js'
 
-  const
-    pad = new Sketchpad('pad'),
+  function $(selector) {
+    return document.getElementById(selector)
+  }
 
-    btnClear = document.getElementById('clear'),
-    btnPoint = document.getElementById('point'),
-    btnCircle = document.getElementById('circle'),
-    btnLine = document.getElementById('line'),
-    btnPolygon = document.getElementById('polygon')
+  const
+    pad = new Sketchpad($('pad')),
+
+    btnClear = $('clear'),
+    btnPoint = $('point'),
+    btnCircle = $('circle'),
+    btnLine = $('line'),
+    btnPolygon = $('polygon')
 
   btnClear.onclick = function() {
     pad.clear()

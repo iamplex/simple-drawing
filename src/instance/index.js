@@ -1,12 +1,12 @@
 import {eventsInit} from '../instance/event.js'
 import {DEVICE_PIXEL_RATIO} from '../instance/default.js'
 
-function Sketchpad(selector, options) {
+function Sketchpad(container, options) {
 
   /**
    * @type {HTMLElement}
    */
-  this.container = document.getElementById(selector)
+  this.container = container
 
 
   /**
