@@ -1,8 +1,8 @@
 {
-  "name": "simple-draw",
-  "version": "1.0.0",
+  "name": "simple-drawing",
+  "version": "0.0.1",
   "description": "一个模仿Openlayers绘图功能的library",
-  "main": "index.js",
+  "main": "build/sd.js",
   "directories": {
     "example": "examples"
   },
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iamplex/SimpleDraw.git"
+    "url": "git+https://github.com/iamplex/SimpleDrawing.git"
   },
   "keywords": [
     "javascript",
