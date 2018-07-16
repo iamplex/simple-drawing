@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SimpleDraw</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Quattrocento Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.42857143;
+      color: #333;
+    }
+
+    .form {
+      padding: 10px;
+    }
+
+    .nav {
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- <div class="nav">
+    <a href="/examples/draw.html">draw</a>
+    /
+    <span>add-geom</span>
+  </div> -->
+  <div class="form">
+    <div>
+      <button type="button" id="clear">clear</button>
+    </div>
+    <div>
+      <button type="button" id="point">add point</button>
+      <button type="button" id="circle">add circle</button>
+      <button type="button" id="line">add line</button>
+      <button type="button" id="polygon">add polygon</button>
+    </div>
+  </div>
+  <div id="pad" style="margin: 0 20px; height: 700px; border: 3px solid #ccc; background: #dfdfdf;"></div>
+</body>
+</html>
+<script type="module">
+  import Sketchpad from '../src/instance/index.js'
+  import Point from '../src/geometry/Point.js'
+  import Circle from '../src/geometry/Circle.js'
+  import Line from '../src/geometry/Line.js'
+  import Polygon from '../src/geometry/Polygon.js'
+
+  const
+    pad = new Sketchpad('pad'),
+
+    btnClear = document.getElementById('clear'),
+    btnPoint = document.getElementById('point'),
+    btnCircle = document.getElementById('circle'),
+    btnLine = document.getElementById('line'),
+    btnPolygon = document.getElementById('polygon')
+
+  btnClear.onclick = function() {
+    pad.clear()
+    pad.clearFeature()
+  }
+
+  btnPoint.onclick = function() {
+    const point = new Point()
+    point.setCoordinates([[300, 300]])
+    point.setStyle([
+      {
+        fill: {
+          color: '#03f'
+        },
+        stroke: {
+          width: 1,
+          color: '#29e'
+        }
+      }
+    ])
+
+    pad.addFeature(point)
+    pad.render()
+  }
+
+  btnLine.onclick = function() {
+    const line = new Line()
+    line.setCoordinates([[500, 300], [200, 200], [400, 400]])
+    line.setStyle([
+      {
+        stroke: {
+          width: 8,
+          color: '#f00'
+        }
+      }
+    ])
+
+    pad.addFeature(line)
+    pad.render()
+  }
+
+  btnCircle.onclick = function() {
+    const circle = new Circle()
+    circle.setCenter([100, 300])
+    circle.setRadius(60)
+    circle.setStyle([
+      {
+        stroke: {
+          width: 1,
+          color: '#f00'
+        }
+      }
+    ])
+
+    pad.addFeature(circle)
+    pad.render()
+  }
+
+  btnPolygon.onclick = function() {
+    const polygon = new Polygon()
+    polygon.setCoordinates([[400, 200], [100, 500], [400, 250]])
+    polygon.setStyle([
+      {
+        stroke: {
+          width: 1,
+          color: '#f00'
+        }
+      }
+    ])
+
+    pad.addFeature(polygon)
+    pad.render()
+  }
+</script>

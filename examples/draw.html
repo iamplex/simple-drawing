@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SimpleDraw</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Quattrocento Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.42857143;
+      color: #333;
+    }
+
+    .form {
+      padding: 10px;
+    }
+
+    .nav {
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- <div class="nav">
+    <span>draw</span>
+    /
+    <a href="/examples/add-geom.html">add-geom</a>
+  </div> -->
+  <div class="form">
+    <div>
+      <button type="button" id="clear">clear</button>
+    </div>
+    <div>
+      <label>Freehand</label>
+      <input type="checkbox" id="freehand" />
+    </div>
+    <div>
+      <label>Geometry type</label>
+      <select id="draw-type">
+        <option value="Point">Point</option>
+        <option value="Circle">Circle</option>
+        <option value="Line">Line</option>
+        <option value="Polygon">Polygon</option>
+        <option value="Custom">RegularPolygon</option>
+        <!-- <option value="Custom">Box</option> -->
+      </select>
+      <span id="extend" style="display: none;">
+        <label>sides</label>
+        <input type="text" id="sides" value="4">
+      </span>
+    </div>
+  </div>
+  <div id="pad" style="margin: 0 20px; height: 700px; border: 3px solid #ccc; background: #dfdfdf;"></div>
+</body>
+</html>
+<script src="../build/sd.js"></script>
+<script>
+  // import Sketchpad from '../src/instance/index.js'
+  // import Draw from '../src/interaction/Draw.js'
+
+  const
+    pad = new sd.Sketchpad('pad'),
+
+    domExtend = document.getElementById('extend'),
+    btnClear = document.getElementById('clear'),
+    inputType = document.getElementById('draw-type'),
+    inputFreehand = document.getElementById('freehand'),
+    inputSides = document.getElementById('sides')
+
+  function settingChange() {
+    const
+      typeValue = inputType.value,
+      freehandValue = inputFreehand.checked,
+      sidesValue = inputSides.value
+
+    if (typeValue === 'Custom') {
+      domExtend.style.display = 'inline-block'
+    } else {
+      domExtend.style.display = 'none'
+    }
+
+    pad.setDraw(new sd.interaction.Draw({
+      type: typeValue,
+      freehand: freehandValue,
+      sides: sidesValue
+    }))
+  }
+
+  btnClear.onclick = function() {
+    pad.clear()
+    pad.clearFeature()
+  }
+
+  inputType.onchange = function() {
+    settingChange()
+  }
+
+  inputFreehand.onchange = function() {
+    settingChange()
+  }
+
+  inputSides.onchange = function() {
+    settingChange()
+  }
+
+  settingChange()
+</script>
