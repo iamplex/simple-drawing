@@ -59,26 +59,65 @@ export default Polygon
  * @param  {Number} sides
  * @return {Array.<Array.<Number>>}
  */
+// export function createRegularPolygon(start, end, sides) {
+//   const
+//     dx = start[0] - end[0],
+//     dy = start[1] - end[1],
+//     angle = Math.atan((end[1] - start[1]) / (end[0] - start[0])),
+//     radius = Math.sqrt(dx * dx + dy * dy)
+
+//   let coordinates = []
+
+//   function modulo(a, b) {
+//     const r = a % b;
+//     return r * b < 0 ? r + b : r;
+//   }
+
+//   for (let i = 0; i < sides; i++) {
+//     const _angle = angle + (modulo(i, sides) * 2 * Math.PI / sides)
+
+//     coordinates[i] = [
+//       start[0] + (radius * Math.cos(_angle)),
+//       start[1] + (radius * Math.sin(_angle))
+//     ]
+//   }
+
+//   coordinates[sides] = coordinates[0]
+
+//   return coordinates
+// }
+
 export function createRegularPolygon(start, end, sides) {
   const
     dx = start[0] - end[0],
     dy = start[1] - end[1],
-    angle = Math.atan((end[1] - start[1]) / (end[0] - start[0])),
-    radius = Math.sqrt(dx * dx + dy * dy)
+    radius = Math.sqrt(dx * dx + dy * dy),
+    averageAngle = 360 / sides
+
+  let startAngle = 180 * Math.atan((end[1] - start[1]) / (end[0] - start[0])) / Math.PI
+
+  if (end[0] - start[0] >= 0 && end[1] - start[1] <= 0) {
+    startAngle = startAngle + 360
+  } else if (end[0] - start[0] >= 0 && end[1] - start[1] >= 0) {
+    startAngle = startAngle
+  } else if (end[0] - start[0] <= 0 && end[1] - start[1] >= 0) {
+    startAngle = startAngle + 180
+  } else if (end[0] - start[0] <= 0 && end[1] - start[1] <= 0) {
+    startAngle = startAngle + 180
+  }
 
   let coordinates = []
 
-  function modulo(a, b) {
-    const r = a % b;
-    return r * b < 0 ? r + b : r;
-  }
-
   for (let i = 0; i < sides; i++) {
-    const _angle = angle + (modulo(i, sides) * 2 * Math.PI / sides)
+    let angle = startAngle + averageAngle * i
+
+    if (angle > 360) {
+      angle = angle - 360
+    }
 
     coordinates[i] = [
-      start[0] + (radius * Math.cos(_angle)),
-      start[1] + (radius * Math.sin(_angle))
+      start[0] + (radius * Math.cos(angle * Math.PI / 180)),
+      start[1] + (radius * Math.sin(angle * Math.PI / 180))
     ]
   }
 
