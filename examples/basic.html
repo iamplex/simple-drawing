@@ -42,8 +42,8 @@
         <option value="Circle">Circle</option>
         <option value="Line">Line</option>
         <option value="Polygon">Polygon</option>
-        <option value="Custom">RegularPolygon</option>
-        <!-- <option value="Custom">Box</option> -->
+        <option value="Box">Box</option>
+        <option value="RegularPolygon">RegularPolygon</option>
       </select>
       <span id="extend" style="display: none;">
         <label>sides</label>
@@ -56,7 +56,7 @@
 </html>
 <script type="module">
   import Sketchpad from '../src/instance/index.js'
-  import Draw from '../src/interaction/Draw.js'
+  import Draw, {createBox, createRegularPolygon} from '../src/interaction/Draw.js'
 
   function $(selector) {
     return document.getElementById(selector)
@@ -73,20 +73,29 @@
 
   function settingChange() {
     const
-      typeValue = inputType.value,
       freehandValue = inputFreehand.checked,
       sidesValue = inputSides.value
 
-    if (typeValue === 'Custom') {
+    let
+      typeValue = inputType.value,
+      _createGeometryCoordinates
+
+    domExtend.style.display = 'none'
+
+    if (typeValue === 'Box') {
+      typeValue = 'Custom'
+      _createGeometryCoordinates = createBox()
+    } else if (typeValue === 'RegularPolygon') {
       domExtend.style.display = 'inline-block'
-    } else {
-      domExtend.style.display = 'none'
+
+      typeValue = 'Custom'
+      _createGeometryCoordinates = createRegularPolygon(sidesValue)
     }
 
     pad.setDraw(new Draw({
       type: typeValue,
       freehand: freehandValue,
-      sides: sidesValue
+      createGeometryCoordinates: _createGeometryCoordinates
     }))
   }
 

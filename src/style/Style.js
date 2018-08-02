@@ -112,8 +112,8 @@ export function createEditingStyle(type) {
 
 
 /**
- * @param  {CanvasRenderingContext2D} ctx Canvas context
- * @param  {Array.<Object>} styles
+ * @param {CanvasRenderingContext2D} ctx Canvas context
+ * @param {Array.<Object>} styles
  */
 export function renderStyle(ctx, styles) {
   styles.forEach(function(style) {

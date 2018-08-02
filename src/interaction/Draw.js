@@ -3,7 +3,7 @@ import GeometryType from '../geometry/GeometryType.js'
 import Point from '../geometry/Point.js'
 import Circle from '../geometry/Circle.js'
 import Line from '../geometry/Line.js'
-import Polygon, {createRegularPolygon} from '../geometry/Polygon.js'
+import Polygon from '../geometry/Polygon.js'
 
 /**
  * 用于绘制几何图形的交互
@@ -30,12 +30,6 @@ function Draw(options) {
    * @type {Boolean}
    */
   this.isDrawing = false
-
-  /**
-   * 草图边数, 当绘图类型为 'Custom' 时必传
-   * @type {Number}
-   */
-  this.sides
 
   /**
    * 草图坐标
@@ -76,9 +70,12 @@ function Draw(options) {
   } else if (this.type === GeometryType.POLYGON) {
     this.geometryConstructor = Polygon
   } else if (this.type === GeometryType.CUSTOM) {
+    // 使用Circle构造函数更佳, Polygon过于冗余, 待修改
+    // this.geometryConstructor = Circle
     this.geometryConstructor = Polygon
-    this.sides = parseInt(options.sides, 10)
   }
+
+  this.createGeometryCoordinates = options.createGeometryCoordinates
 }
 
 /**
@@ -159,8 +156,7 @@ Draw.prototype.modifyDrawing = function(coordinate) {
     if (drawType === GeometryType.POLYGON) {
       this.sketchFeature.setCoordinates(this.sketchCoords)
     } else {
-      const coordinates = createRegularPolygon(this.sketchCoords[0], this.sketchCoords[1], this.sides)
-
+      const coordinates = this.createGeometryCoordinates(this.sketchCoords[0], this.sketchCoords[1])
       this.sketchFeature.setCoordinates(coordinates)
     }
   }
@@ -204,3 +200,69 @@ Draw.prototype.finishDrawing = function() {
 }
 
 export default Draw
+
+/**
+ * 创建一个函数, 它将返回一个正四边形的坐标(与坐标轴平行), 需要将Draw类的type设置为'Polygon'
+ * @return {module:interaction/Draw~createGeometryCoordinates} 用于创建正四边形坐标的函数
+ */
+export function createBox() {
+  return function(start, end) {
+    const coordinates = [
+        [start[0], start[1]],
+        [end[0], start[1]],
+        [end[0], end[1]],
+        [start[0], end[1]],
+        [start[0], start[1]]
+      ]
+
+    return coordinates
+  }
+}
+
+/**
+ * 创建一个函数, 它将返回一个正多边形的坐标, 需要将Draw类的type设置为'Polygon'
+ * @param  {Number} sides 正多边形的边数
+ * @return {module:interaction/Draw~createGeometryCoordinates} 用于创建正多边形坐标的函数
+ */
+export function createRegularPolygon(sides) {
+  return function(start, end) {
+    const
+      dx = start[0] - end[0],
+      dy = start[1] - end[1],
+      radius = Math.sqrt(dx * dx + dy * dy),
+      averageAngle = 360 / sides
+
+    let startAngle = 180 * Math.atan((end[1] - start[1]) / (end[0] - start[0])) / Math.PI
+
+    if (end[0] - start[0] >= 0 && end[1] - start[1] <= 0) {
+      startAngle = startAngle + 360
+    } else if (end[0] - start[0] >= 0 && end[1] - start[1] >= 0) {
+      startAngle = startAngle
+    } else if (end[0] - start[0] <= 0 && end[1] - start[1] >= 0) {
+      startAngle = startAngle + 180
+    } else if (end[0] - start[0] <= 0 && end[1] - start[1] <= 0) {
+      startAngle = startAngle + 180
+    }
+
+    const coordinates = []
+
+    for (let i = 0; i < sides; i++) {
+      let angle = startAngle + averageAngle * i
+
+      if (angle > 360) {
+        angle = angle - 360
+      }
+
+      coordinates[i] = [
+        start[0] + (radius * Math.cos(angle * Math.PI / 180)),
+        start[1] + (radius * Math.sin(angle * Math.PI / 180))
+      ]
+    }
+
+    coordinates[sides] = coordinates[0]
+
+    return coordinates
+  }
+}
+
+
