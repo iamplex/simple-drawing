@@ -6,10 +6,10 @@
 
 [Examples](https://iamplex.github.io/SimpleDrawing/examples/)
 
-### Default
+## Default
 ![gif](https://iamplex.github.io/SimpleDrawing/assets/default.gif)
 
-### Freehand
+## Freehand
 ![gif](https://iamplex.github.io/SimpleDrawing/assets/freehand.gif)
 
 ## Usage
