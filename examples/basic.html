@@ -2,65 +2,77 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Basic</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Quattrocento Sans', sans-serif;
-      font-size: 16px;
-      line-height: 1.42857143;
-      color: #333;
-    }
-
-    .form {
-      padding: 10px;
-    }
-
-    .nav {
-      padding: 10px;
-    }
+  <link rel="stylesheet" href="./assets/prism/prism.css" type="text/css">
+  <link rel="stylesheet" href="./assets/layout.css" type="text/css">
   </style>
+  <title>Basic</title>
 </head>
 <body>
-  <div class="form">
-    <div>
-      <button type="button" id="clear">clear</button>
+  <div class="container">
+    <div class="form">
+      <div>
+        <button type="button" id="clear">clear</button>
+      </div>
+      <div>
+        <label>Freehand</label>
+        <input type="checkbox" id="freehand" />
+      </div>
+      <div>
+        <label>Geometry type</label>
+        <select id="draw-type">
+          <option value="Point">Point</option>
+          <option value="Circle">Circle</option>
+          <option value="Line">Line</option>
+          <option value="Polygon">Polygon</option>
+          <option value="Box">Box</option>
+          <option value="RegularPolygon">RegularPolygon</option>
+        </select>
+        <span id="extend" style="display: none;">
+          <label>sides</label>
+          <input type="text" id="sides" value="3">
+        </span>
+      </div>
     </div>
-    <div>
-      <label>Freehand</label>
-      <input type="checkbox" id="freehand" />
-    </div>
-    <div>
-      <label>Geometry type</label>
-      <select id="draw-type">
-        <option value="Point">Point</option>
-        <option value="Circle">Circle</option>
-        <option value="Line">Line</option>
-        <option value="Polygon">Polygon</option>
-        <option value="Box">Box</option>
-        <option value="RegularPolygon">RegularPolygon</option>
-      </select>
-      <span id="extend" style="display: none;">
-        <label>sides</label>
-        <input type="text" id="sides" value="3">
-      </span>
-    </div>
-  </div>
-  <div id="pad" style="margin: 0 20px; height: 700px; border: 3px solid #ccc; background: #dfdfdf;"></div>
-</body>
-</html>
-<script type="module">
+    <div id="pad"></div>
+    <pre><code class="language-markup">&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+  &lt;meta charset="utf-8">
+  &lt;title>Basic&lt;/title>
+&lt;/head>
+&lt;body>
+  &lt;div class="container">
+    &lt;div class="form">
+      &lt;div>
+        &lt;button type="button" id="clear">clear&lt;/button>
+      &lt;/div>
+      &lt;div>
+        &lt;label>Freehand&lt;/label>
+        &lt;input type="checkbox" id="freehand" />
+      &lt;/div>
+      &lt;div>
+        &lt;label>Geometry type&lt;/label>
+        &lt;select id="draw-type">
+          &lt;option value="Point">Point&lt;/option>
+          &lt;option value="Circle">Circle&lt;/option>
+          &lt;option value="Line">Line&lt;/option>
+          &lt;option value="Polygon">Polygon&lt;/option>
+          &lt;option value="Box">Box&lt;/option>
+          &lt;option value="RegularPolygon">RegularPolygon&lt;/option>
+        &lt;/select>
+        &lt;span id="extend" style="display: none;">
+          &lt;label>sides&lt;/label>
+          &lt;input type="text" id="sides" value="3">
+        &lt;/span>
+      &lt;/div>
+    &lt;/div>
+    &lt;div id="pad">&lt;/div>
+  &lt;/div>
+&lt;/body>
+&lt;/html>
+&lt;script type="module">
   import Sketchpad from '../src/instance/index.js'
   import Draw, {createBox, createRegularPolygon} from '../src/interaction/Draw.js'
-
-  function $(selector) {
-    return document.getElementById(selector)
-  }
 
   const
     pad = new Sketchpad($('pad')),
@@ -70,6 +82,78 @@
     inputType = $('draw-type'),
     inputFreehand = $('freehand'),
     inputSides = $('sides')
+
+  function $(selector) {
+    return document.getElementById(selector)
+  }
+
+  function settingChange() {
+    const
+      freehandValue = inputFreehand.checked,
+      sidesValue = inputSides.value
+
+    let
+      typeValue = inputType.value,
+      _createGeometryCoordinates
+
+    domExtend.style.display = 'none'
+
+    if (typeValue === 'Box') {
+      typeValue = 'Custom'
+      _createGeometryCoordinates = createBox()
+    } else if (typeValue === 'RegularPolygon') {
+      domExtend.style.display = 'inline-block'
+
+      typeValue = 'Custom'
+      _createGeometryCoordinates = createRegularPolygon(sidesValue)
+    }
+
+    pad.setDraw(new Draw({
+      type: typeValue,
+      freehand: freehandValue,
+      createGeometryCoordinates: _createGeometryCoordinates
+    }))
+  }
+
+  btnClear.onclick = function() {
+    pad.clear()
+    pad.clearFeature()
+  }
+
+  inputType.onchange = function() {
+    settingChange()
+  }
+
+  inputFreehand.onchange = function() {
+    settingChange()
+  }
+
+  inputSides.onchange = function() {
+    settingChange()
+  }
+
+  settingChange()
+&lt;/script></code></pre>
+  </div>
+</body>
+</html>
+<script src="./assets/prism/prism.min.js"></script>
+<script type="module">
+  import Sketchpad from '../src/instance/index.js'
+  import Draw, {createBox, createRegularPolygon} from '../src/interaction/Draw.js'
+
+  const
+    pad = new Sketchpad($('pad')),
+
+    domExtend = $('extend'),
+    btnClear = $('clear'),
+    inputType = $('draw-type'),
+    inputFreehand = $('freehand'),
+    inputSides = $('sides')
+
+  function $(selector) {
+    return document.getElementById(selector)
+  }
 
   function settingChange() {
     const

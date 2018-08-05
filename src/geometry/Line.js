@@ -1,12 +1,15 @@
 import {inherits} from '../utils.js'
 import Geometry from '../geometry/Geometry.js'
 import GeometryType from '../geometry/GeometryType.js'
-import {renderStyle} from '../style/Style.js'
+import {createDefaultStyle, renderStyle} from '../style/Style.js'
+
 
 function Line(coordinates) {
   Geometry.call(this)
 
   this.setCoordinates(coordinates)
+
+  this.setStyle(createDefaultStyle(this.getType()))
 }
 
 inherits(Line, Geometry)

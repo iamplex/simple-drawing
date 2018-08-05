@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.42857143;
+  color: #333;
+}
+
+p {
+  margin: 0 0 10px;
+}
+
+pre[class*="language-"] {
+  background: #fff;
+  border: 1px solid #eee;
+  font-size: 13px;
+}
+
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#pad {
+  margin: 15px 0;
+  height: 700px;
+  background: #e0e0e0;
+}

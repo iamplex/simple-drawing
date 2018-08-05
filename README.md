@@ -4,7 +4,7 @@
 
 一个模仿Openlayers interaction/Draw的功能，压缩后的大小只有9kb
 
-[Examples](https://iamplex.github.io/SimpleDrawing/examples)
+[Examples](https://iamplex.github.io/SimpleDrawing/examples/)
 
 ![gif](https://iamplex.github.io/SimpleDrawing/assets/demo.gif)
 

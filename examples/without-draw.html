@@ -2,64 +2,88 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="./assets/prism/prism.css" type="text/css">
+  <link rel="stylesheet" href="./assets/layout.css" type="text/css">
   <title>Without Draw</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Quattrocento Sans', sans-serif;
-      font-size: 16px;
-      line-height: 1.42857143;
-      color: #333;
-    }
-
-    .form {
-      padding: 10px;
-    }
-
-    .nav {
-      padding: 10px;
-    }
-  </style>
 </head>
 <body>
-  <div class="form">
-    <div>
-      <button type="button" id="clear">clear</button>
+  <div class="container">
+    <div class="form">
+      <div>
+        <button type="button" id="clear">clear</button>
+      </div>
+      <div>
+        <button type="button" id="point">add point</button>
+        <button type="button" id="circle">add circle</button>
+        <button type="button" id="line">add line</button>
+        <button type="button" id="polygon">add polygon</button>
+      </div>
     </div>
-    <div>
-      <button type="button" id="point">add point</button>
-      <button type="button" id="circle">add circle</button>
-      <button type="button" id="line">add line</button>
-      <button type="button" id="polygon">add polygon</button>
-    </div>
-  </div>
-  <div id="pad" style="margin: 0 20px; height: 700px; border: 3px solid #ccc; background: #dfdfdf;"></div>
-</body>
-</html>
-<script type="module">
+    <div id="pad"></div>
+    <pre><code class="language-markup">&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+  &lt;meta charset="utf-8">
+  &lt;title>Without Draw&lt;/title>
+&lt;/head>
+&lt;body>
+  &lt;div class="container">
+    &lt;div class="form">
+      &lt;div>
+        &lt;button type="button" id="clear">clear&lt;/button>
+      &lt;/div>
+      &lt;div>
+        &lt;button type="button" id="point">add point&lt;/button>
+        &lt;button type="button" id="circle">add circle&lt;/button>
+        &lt;button type="button" id="line">add line&lt;/button>
+        &lt;button type="button" id="polygon">add polygon&lt;/button>
+      &lt;/div>
+    &lt;/div>
+    &lt;div id="pad">&lt;/div>
+  &lt;/div>
+&lt;/body>
+&lt;/html>
+&lt;script type="module">
   import Sketchpad from '../src/instance/index.js'
   import Point from '../src/geometry/Point.js'
   import Circle from '../src/geometry/Circle.js'
   import Line from '../src/geometry/Line.js'
   import Polygon from '../src/geometry/Polygon.js'
 
-  function $(selector) {
-    return document.getElementById(selector)
-  }
-
   const
-    pad = new Sketchpad($('pad')),
+    domPad = $('pad'),
+    pad = new Sketchpad(domPad),
+
+    width = parseInt(getComputedStyle(domPad).width, 10),
+    height = parseInt(getComputedStyle(domPad).height, 10),
 
     btnClear = $('clear'),
     btnPoint = $('point'),
     btnCircle = $('circle'),
     btnLine = $('line'),
     btnPolygon = $('polygon')
+
+  function $(selector) {
+    return document.getElementById(selector)
+  }
+
+  function randNumber(min, max) {
+    return Math.floor(Math.random() * (max - min) + min)
+  }
+
+  function randPos() {
+    return [randNumber(0, width), randNumber(0, height)].slice()
+  }
+
+  function randCoords(min, max) {
+    const coords = []
+
+    for (let i = randNumber(min, max); i > 0; i--) {
+      coords.push(randPos())
+    }
+
+    return coords
+  }
 
   btnClear.onclick = function() {
     pad.clear()
@@ -68,18 +92,7 @@
 
   btnPoint.onclick = function() {
     const point = new Point()
-    point.setCoordinates([[300, 300]])
-    point.setStyle([
-      {
-        fill: {
-          color: '#03f'
-        },
-        stroke: {
-          width: 1,
-          color: '#29e'
-        }
-      }
-    ])
+    point.setCoordinates(randCoords(1, 1))
 
     pad.addFeature(point)
     pad.render()
@@ -87,15 +100,7 @@
 
   btnLine.onclick = function() {
     const line = new Line()
-    line.setCoordinates([[500, 300], [200, 200], [400, 400]])
-    line.setStyle([
-      {
-        stroke: {
-          width: 8,
-          color: '#f00'
-        }
-      }
-    ])
+    line.setCoordinates(randCoords(2, 5))
 
     pad.addFeature(line)
     pad.render()
@@ -103,32 +108,108 @@
 
   btnCircle.onclick = function() {
     const circle = new Circle()
-    circle.setCenter([100, 300])
-    circle.setRadius(60)
-    circle.setStyle([
-      {
-        stroke: {
-          width: 1,
-          color: '#f00'
-        }
-      }
-    ])
+    circle.setCenter(randPos())
+    circle.setRadius(randNumber(60, 100))
 
     pad.addFeature(circle)
     pad.render()
   }
 
   btnPolygon.onclick = function() {
-    const polygon = new Polygon()
-    polygon.setCoordinates([[400, 200], [100, 500], [400, 250]])
-    polygon.setStyle([
-      {
-        stroke: {
-          width: 1,
-          color: '#f00'
-        }
-      }
-    ])
+    const
+      polygon = new Polygon(),
+      coords = randCoords(3, 5)
+
+    coords.push(coords[0])
+    polygon.setCoordinates(coords)
+
+    pad.addFeature(polygon)
+    pad.render()
+  }
+&lt;/script></code></pre>
+  </div>
+</body>
+</html>
+<script src="./assets/prism/prism.min.js"></script>
+<script type="module">
+  import Sketchpad from '../src/instance/index.js'
+  import Point from '../src/geometry/Point.js'
+  import Circle from '../src/geometry/Circle.js'
+  import Line from '../src/geometry/Line.js'
+  import Polygon from '../src/geometry/Polygon.js'
+
+  const
+    domPad = $('pad'),
+    pad = new Sketchpad(domPad),
+
+    width = parseInt(getComputedStyle(domPad).width, 10),
+    height = parseInt(getComputedStyle(domPad).height, 10),
+
+    btnClear = $('clear'),
+    btnPoint = $('point'),
+    btnCircle = $('circle'),
+    btnLine = $('line'),
+    btnPolygon = $('polygon')
+
+  function $(selector) {
+    return document.getElementById(selector)
+  }
+
+  function randNumber(min, max) {
+    return Math.floor(Math.random() * (max - min) + min)
+  }
+
+  function randPos() {
+    return [randNumber(0, width), randNumber(0, height)].slice()
+  }
+
+  function randCoords(min, max) {
+    const coords = []
+
+    for (let i = randNumber(min, max); i > 0; i--) {
+      coords.push(randPos())
+    }
+
+    return coords
+  }
+
+  btnClear.onclick = function() {
+    pad.clear()
+    pad.clearFeature()
+  }
+
+  btnPoint.onclick = function() {
+    const point = new Point()
+    point.setCoordinates(randCoords(1, 1))
+
+    pad.addFeature(point)
+    pad.render()
+  }
+
+  btnLine.onclick = function() {
+    const line = new Line()
+    line.setCoordinates(randCoords(2, 5))
+
+    pad.addFeature(line)
+    pad.render()
+  }
+
+  btnCircle.onclick = function() {
+    const circle = new Circle()
+    circle.setCenter(randPos())
+    circle.setRadius(randNumber(60, 100))
+
+    pad.addFeature(circle)
+    pad.render()
+  }
+
+  btnPolygon.onclick = function() {
+    const
+      polygon = new Polygon(),
+      coords = randCoords(3, 5)
+
+    coords.push(coords[0])
+    polygon.setCoordinates(coords)
 
     pad.addFeature(polygon)
     pad.render()
