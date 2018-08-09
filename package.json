@@ -26,6 +26,7 @@
   "author": "iamplex",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^5.3.0",
     "jsdoc": "^3.5.5",
     "rollup-plugin-buble": "^0.19.2",
     "rollup-plugin-commonjs": "^9.1.3",
