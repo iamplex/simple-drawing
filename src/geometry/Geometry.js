@@ -13,7 +13,7 @@ Geometry.prototype.setCoordinates = function(coordinates) {
 }
 
 Geometry.prototype.setStyle = function(style) {
- this.style = style
+  this.style = style
 }
 
 export default Geometry

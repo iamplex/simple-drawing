@@ -50,7 +50,7 @@ function Draw(options) {
   this.context
 
   /**
-   * 当前Canvas 2D 绘图上下文
+   *
    * @type {Array.<module:geometry/Geometry>}
    */
   this.features
@@ -208,12 +208,12 @@ export default Draw
 export function createBox() {
   return function(start, end) {
     const coordinates = [
-        [start[0], start[1]],
-        [end[0], start[1]],
-        [end[0], end[1]],
-        [start[0], end[1]],
-        [start[0], start[1]]
-      ]
+      [start[0], start[1]],
+      [end[0], start[1]],
+      [end[0], end[1]],
+      [start[0], end[1]],
+      [start[0], start[1]]
+    ]
 
     return coordinates
   }
@@ -235,13 +235,13 @@ export function createRegularPolygon(sides) {
     let startAngle = 180 * Math.atan((end[1] - start[1]) / (end[0] - start[0])) / Math.PI
 
     if (end[0] - start[0] >= 0 && end[1] - start[1] <= 0) {
-      startAngle = startAngle + 360
+      startAngle += 360
     } else if (end[0] - start[0] >= 0 && end[1] - start[1] >= 0) {
-      startAngle = startAngle
+      // startAngle = startAngle
     } else if (end[0] - start[0] <= 0 && end[1] - start[1] >= 0) {
-      startAngle = startAngle + 180
+      startAngle += 180
     } else if (end[0] - start[0] <= 0 && end[1] - start[1] <= 0) {
-      startAngle = startAngle + 180
+      startAngle += 180
     }
 
     const coordinates = []

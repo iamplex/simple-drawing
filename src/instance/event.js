@@ -39,7 +39,7 @@ export function eventsInit(instance) {
     }
   }, false)
 
-  canvas.addEventListener('dblclick', function(event) {
+  canvas.addEventListener('dblclick', function() {
     const draw = instance.getDraw()
 
     if (!draw) {
@@ -112,7 +112,7 @@ export function eventsInit(instance) {
     mousePoint.render(context)
   }, false)
 
-  canvas.addEventListener('mouseup', function(event) {
+  canvas.addEventListener('mouseup', function() {
     const draw = instance.getDraw()
 
     if (!draw) {

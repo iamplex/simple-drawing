@@ -1,6 +1,6 @@
 import {inherits} from '../utils.js'
 import Geometry from '../geometry/Geometry.js'
-import GeometryType from '../geometry/GeometryType.js';
+import GeometryType from '../geometry/GeometryType.js'
 import {createDefaultStyle, renderStyle} from '../style/Style.js'
 
 
