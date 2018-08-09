@@ -1,6 +1,6 @@
 {
   "name": "simple-drawing",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "一个模仿Openlayers绘图功能的library",
   "main": "build/sd.js",
   "directories": {
@@ -10,7 +10,8 @@
     "build"
   ],
   "scripts": {
-    "build": "rollup -c"
+    "test": "eslint src examples",
+    "build": "rollup -c config/rollup.js"
   },
   "repository": {
     "type": "git",
