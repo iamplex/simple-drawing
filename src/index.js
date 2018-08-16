@@ -23,5 +23,3 @@ sd.interaction.Draw = $sd$interaction$Draw
 sd.Sketchpad = $sd$interaction$Sketchpad
 
 export default sd
-
-

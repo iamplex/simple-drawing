@@ -1,19 +1,21 @@
-function Geometry() {
-  this.coordinates = []
+class Geometry {
+  constructor() {
+    this.coordinates = []
 
-  this.style = []
-}
+    this.style = []
+  }
 
-Geometry.prototype.getCoordinates = function() {
-  return this.coordinates.slice()
-}
+  getCoordinates() {
+    return this.coordinates.slice()
+  }
 
-Geometry.prototype.setCoordinates = function(coordinates) {
-  this.coordinates = coordinates
-}
+  setCoordinates(coordinates) {
+    this.coordinates = coordinates
+  }
 
-Geometry.prototype.setStyle = function(style) {
-  this.style = style
+  setStyle(style) {
+    this.style = style
+  }
 }
 
 export default Geometry
