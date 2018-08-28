@@ -232,35 +232,23 @@ export function createBox() {
 export function createRegularPolygon(sides) {
   return function(start, end) {
     const
-      dx = start[0] - end[0],
-      dy = start[1] - end[1],
+      coordinates = [],
+      dx = end[0] - start[0],
+      dy = end[1] - start[1],
       radius = Math.sqrt(dx * dx + dy * dy),
-      averageAngle = 360 / sides
+      startAngle = Math.atan(dy / dx) - (dx < 0 ? Math.PI : 0)
 
-    let startAngle = 180 * Math.atan((end[1] - start[1]) / (end[0] - start[0])) / Math.PI
-
-    if (end[0] - start[0] >= 0 && end[1] - start[1] <= 0) {
-      startAngle += 360
-    } else if (end[0] - start[0] >= 0 && end[1] - start[1] >= 0) {
-      // startAngle = startAngle
-    } else if (end[0] - start[0] <= 0 && end[1] - start[1] >= 0) {
-      startAngle += 180
-    } else if (end[0] - start[0] <= 0 && end[1] - start[1] <= 0) {
-      startAngle += 180
-    }
-
-    const coordinates = []
+    // debug
+    // console.log('弧度:' + startAngle)
 
     for (let i = 0; i < sides; i++) {
-      let angle = startAngle + averageAngle * i
-
-      if (angle > 360) {
-        angle = angle - 360
-      }
+      const
+        avgAngle = 2 * Math.PI / sides,
+        angle = startAngle + avgAngle * i
 
       coordinates[i] = [
-        start[0] + (radius * Math.cos(angle * Math.PI / 180)),
-        start[1] + (radius * Math.sin(angle * Math.PI / 180))
+        start[0] + radius * Math.cos(angle),
+        start[1] + radius * Math.sin(angle)
       ]
     }
 
