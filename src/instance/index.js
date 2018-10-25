@@ -4,7 +4,6 @@ import {DEVICE_PIXEL_RATIO} from '../instance/default.js'
 class Sketchpad {
   constructor(container) {
 
-
     /**
      * @type {HTMLElement}
      */
@@ -87,6 +86,15 @@ class Sketchpad {
    */
   getCanvas() {
     return this.canvas
+  }
+
+  getEventPixel(event) {
+    const viewportPosition = this.viewport.getBoundingClientRect()
+
+    return [
+      event.clientX - viewportPosition.left,
+      event.clientY - viewportPosition.top
+    ]
   }
 
   /**
@@ -172,6 +180,8 @@ class Sketchpad {
 
       canvas = this.getCanvas(),
 
+      context = this.getContext(),
+
       size = [
         targetElement.offsetWidth -
           parseFloat(computedStyle['borderLeftWidth']) -
@@ -193,6 +203,8 @@ class Sketchpad {
       canvas.width = width
       canvas.height = height
     }
+
+    context.setTransform(DEVICE_PIXEL_RATIO, 0, 0, DEVICE_PIXEL_RATIO, 0, 0);
 
     this.triggerResize()
   }
