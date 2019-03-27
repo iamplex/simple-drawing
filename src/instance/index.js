@@ -1,21 +1,17 @@
-import {eventsInit} from '../instance/event.js'
-import {DEVICE_PIXEL_RATIO} from '../instance/default.js'
+import { eventsInit } from '../instance/event.js'
+import { DEVICE_PIXEL_RATIO } from '../instance/default.js'
 
 class Sketchpad {
   constructor(container) {
-
-
     /**
      * @type {HTMLElement}
      */
     this.container = container
 
-
     /**
      * @type {CanvasRenderingContext2D}
      */
     this.context = document.createElement('canvas').getContext('2d')
-
 
     /**
      * @type {HTMLElement}
@@ -28,7 +24,6 @@ class Sketchpad {
     this.viewport.style.userSelect = 'none'
     this.viewport.style.touchAction = 'none'
 
-
     /**
      * @type {HTMLCanvasElement}
      */
@@ -40,19 +35,16 @@ class Sketchpad {
     this.viewport.insertBefore(this.canvas, this.viewport.firstChild)
     this.container.appendChild(this.viewport)
 
-
     /**
      * 用于缓存绘制完成的图形
      * @type {Array.<module:geometry/Geometry>}
      */
     this.features = []
 
-
     /**
      * @type {module:interaction/Draw}
      */
     this.draw = null
-
 
     // ??: 在不绑定this的情况下, this.resize函数会报错
     this._animationDelay = function() {
@@ -63,7 +55,7 @@ class Sketchpad {
 
     this._init(this)
 
-    this.context.scale(2, 2)
+    this.context.scale(DEVICE_PIXEL_RATIO, DEVICE_PIXEL_RATIO)
   }
 
   _init(instance) {
@@ -94,10 +86,7 @@ class Sketchpad {
   getEventPixel(event) {
     const viewportPosition = this.viewport.getBoundingClientRect()
 
-    return [
-      event.clientX - viewportPosition.left,
-      event.clientY - viewportPosition.top
-    ]
+    return [event.clientX - viewportPosition.left, event.clientY - viewportPosition.top]
   }
 
   /**
@@ -128,9 +117,11 @@ class Sketchpad {
   render() {
     this.clear()
 
-    this.features.forEach(function(feature) {
-      feature.render(this.context)
-    }.bind(this))
+    this.features.forEach(
+      function(feature) {
+        feature.render(this.context)
+      }.bind(this)
+    )
   }
 
   /**
@@ -165,8 +156,7 @@ class Sketchpad {
    * 清除canvas
    */
   clear() {
-    const
-      canvas = this.getCanvas(),
+    const canvas = this.getCanvas(),
       context = this.getContext()
 
     context.clearRect(0, 0, canvas.width, canvas.height)
@@ -176,13 +166,9 @@ class Sketchpad {
    * 强制重新计算画板容器大小
    */
   resize() {
-    const
-      targetElement = this.getContainer(),
-
+    const targetElement = this.getContainer(),
       computedStyle = getComputedStyle(targetElement),
-
       canvas = this.getCanvas(),
-
       size = [
         targetElement.offsetWidth -
           parseFloat(computedStyle['borderLeftWidth']) -
@@ -196,7 +182,6 @@ class Sketchpad {
           parseFloat(computedStyle['paddingBottom']) -
           parseFloat(computedStyle['borderBottomWidth'])
       ],
-
       width = Math.round(size[0] * DEVICE_PIXEL_RATIO),
       height = Math.round(size[1] * DEVICE_PIXEL_RATIO)
 
