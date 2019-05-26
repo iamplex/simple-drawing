@@ -56,7 +56,7 @@ export function eventsInit(instance) {
     }
   }, false)
 
-  canvas.addEventListener('mousedown', function(event) {
+  canvas.addEventListener('pointerdown', function(event) {
     const draw = instance.getDraw()
 
     if (!draw) {
@@ -86,7 +86,7 @@ export function eventsInit(instance) {
     }
   }, false)
 
-  canvas.addEventListener('mousemove', function(event) {
+  canvas.addEventListener('pointermove', function(event) {
     const draw = instance.getDraw()
 
     instance.render()
@@ -112,7 +112,7 @@ export function eventsInit(instance) {
     mousePoint.render(context)
   }, false)
 
-  canvas.addEventListener('mouseup', function() {
+  canvas.addEventListener('pointerup', function() {
     const draw = instance.getDraw()
 
     if (!draw) {
@@ -126,8 +126,4 @@ export function eventsInit(instance) {
     draw.finishDrawing(context)
     instance.render()
   }, false)
-
-  // canvas.addEventListener('mouseout', function(event) {
-
-  // }, false)
 }
