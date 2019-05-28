@@ -10,15 +10,15 @@
 - [ ] 添加[单元测试](https://jestjs.io)
 - [x] 将[MouseEvent](https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent)改为[PointerEvent](https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events)([Pointer Event 兼容性](https://caniuse.com/#feat=pointer))
 
-[Examples](https://iamplex.github.io/SimpleDrawing/examples/)
+[Examples](https://iamplex.github.io/simple-drawing/examples/)
 
 ## Default
 
-![gif](https://iamplex.github.io/SimpleDrawing/assets/default.gif)
+![gif](https://iamplex.github.io/simple-drawing/assets/default.gif)
 
 ## Freehand
 
-![gif](https://iamplex.github.io/SimpleDrawing/assets/freehand.gif)
+![gif](https://iamplex.github.io/simple-drawing/assets/freehand.gif)
 
 ## Usage
 
