@@ -1,9 +1,10 @@
-import Sketchpad from '../src/instance/index.js'
-import Draw, {createBox, createRegularPolygon} from '../src/interaction/Draw.js'
+import Sketchpad, {
+  Draw,
+  createBox,
+  createRegularPolygon,
+} from '../build/sd.js'
 
-const
-  pad = new Sketchpad($('pad')),
-
+const pad = new Sketchpad($('pad')),
   domExtend = $('extend'),
   btnClear = $('clear'),
   inputType = $('draw-type'),
@@ -15,13 +16,11 @@ function $(selector) {
 }
 
 function settingChange() {
-  const
-    freehandValue = inputFreehand.checked,
-    sidesValue = inputSides.value
+  const freehandValue = inputFreehand.checked
+  const sidesValue = inputSides.value
 
-  let
-    typeValue = inputType.value,
-    _createGeometryCoordinates
+  let typeValue = inputType.value
+  let _createGeometryCoordinates
 
   domExtend.style.display = 'none'
 
@@ -35,27 +34,29 @@ function settingChange() {
     _createGeometryCoordinates = createRegularPolygon(sidesValue)
   }
 
-  pad.setDraw(new Draw({
-    type: typeValue,
-    freehand: freehandValue,
-    createGeometryCoordinates: _createGeometryCoordinates
-  }))
+  pad.setDraw(
+    new Draw({
+      type: typeValue,
+      freehand: freehandValue,
+      createGeometryCoordinates: _createGeometryCoordinates,
+    })
+  )
 }
 
-btnClear.onclick = function() {
+btnClear.onclick = function () {
   pad.clear()
   pad.clearFeature()
 }
 
-inputType.onchange = function() {
+inputType.onchange = function () {
   settingChange()
 }
 
-inputFreehand.onchange = function() {
+inputFreehand.onchange = function () {
   settingChange()
 }
 
-inputSides.onchange = function() {
+inputSides.onchange = function () {
   settingChange()
 }
 

@@ -1,22 +1,16 @@
-import noderesolve from 'rollup-plugin-node-resolve'
-import commonjs from 'rollup-plugin-commonjs'
-import {uglify} from 'rollup-plugin-uglify'
-import buble from 'rollup-plugin-buble'
+// import noderesolve from 'rollup-plugin-node-resolve'
+// import commonjs from 'rollup-plugin-commonjs'
+// import buble from 'rollup-plugin-buble'
+import { uglify } from 'rollup-plugin-uglify'
 import sourcemaps from 'rollup-plugin-sourcemaps'
 
 export default {
-  input: 'src/index.js',
+  input: 'build/index.js',
   output: {
     file: 'build/sd.js',
-    format: 'umd',
+    format: 'es',
     name: 'sd',
-    sourcemap: true
+    sourcemap: true,
   },
-  plugins: [
-    noderesolve(),
-    commonjs(),
-    buble(),
-    uglify(),
-    sourcemaps()
-  ]
+  plugins: [uglify(), sourcemaps()],
 }

@@ -1,21 +1,17 @@
-import Geometry from '../geometry/Geometry.js'
-import GeometryType from '../geometry/GeometryType.js'
-import {createDefaultStyle, renderStyle} from '../style/Style.js'
-
+import Geometry from './Geometry.js'
+import GeometryType from './GeometryType.js'
+import { createDefaultStyle, renderStyle } from '../style/Style.js'
+import { Coordinate } from './Coordinate.js'
 
 class Line extends Geometry {
-  constructor(coordinates) {
+  constructor(coordinates?: Array<Coordinate>) {
     super()
 
     this.setCoordinates(coordinates)
-
     this.setStyle(createDefaultStyle(this.getType()))
   }
 
-  /**
-   * @param {CanvasRenderingContext2D} ctx
-   */
-  render(ctx) {
+  render(ctx: CanvasRenderingContext2D) {
     ctx.beginPath()
 
     ctx.moveTo(this.coordinates[0][0], this.coordinates[0][1])
@@ -29,7 +25,7 @@ class Line extends Geometry {
     ctx.closePath()
   }
 
-  getType() {
+  getType(): GeometryType {
     return GeometryType.LINE
   }
 }
