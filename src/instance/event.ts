@@ -2,13 +2,13 @@ import GeometryType from '../geometry/GeometryType.js'
 import Point from '../geometry/Point.js'
 import { createEditingStyle } from '../style/Style.js'
 
-export function eventsInit(instance) {
+export function eventsInit(instance): void {
   const // todo
     context = instance.getContext(),
     canvas = instance.getCanvas(),
     mousePoint = new Point()
 
-  function pointerup() {
+  function pointerup(): void {
     const draw = instance.getDraw()
 
     if (!draw || !draw.getFreehandState() || draw.type === GeometryType.POINT)
@@ -20,7 +20,7 @@ export function eventsInit(instance) {
     canvas.removeEventListener('pointerup', pointerup, false)
   }
 
-  function dblclick() {
+  function dblclick(): void {
     const draw = instance.getDraw()
 
     if (!draw || draw.isFreehand || !draw.isDrawing) return

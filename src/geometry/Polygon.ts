@@ -11,7 +11,7 @@ class Polygon extends Geometry {
     this.setStyle(createDefaultStyle(this.getType()))
   }
 
-  render(ctx: CanvasRenderingContext2D) {
+  render(ctx: CanvasRenderingContext2D): void {
     ctx.beginPath()
 
     ctx.moveTo(this.coordinates[0][0], this.coordinates[0][1])

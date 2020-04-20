@@ -10,7 +10,7 @@ const defaultMiterLimit = 10
 /**
  * 用于绘制完成后的样式
  */
-export function createDefaultStyle(type: GeometryType) {
+export function createDefaultStyle(type: GeometryType): Record<string, object> {
   const styles = {}
 
   styles[GeometryType.LINE] = [
@@ -40,7 +40,7 @@ export function createDefaultStyle(type: GeometryType) {
 /**
  * 用于绘制状态中的样式
  */
-export function createEditingStyle(type: GeometryType) {
+export function createEditingStyle(type: GeometryType): Record<string, object> {
   const styles = {}
 
   styles[GeometryType.LINE] = [

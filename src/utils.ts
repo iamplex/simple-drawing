@@ -18,7 +18,7 @@
  * @param {Function} childCtor  子构造函数
  * @param {Function} parentCtor 父构造函数
  */
-export function inherits(childCtor, parentCtor) {
-  childCtor.prototype = Object.create(parentCtor.prototype)
-  childCtor.prototype.constructor = childCtor
-}
+// export function inherits(childCtor, parentCtor) {
+//   childCtor.prototype = Object.create(parentCtor.prototype)
+//   childCtor.prototype.constructor = childCtor
+// }

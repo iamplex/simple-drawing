@@ -39,7 +39,7 @@ class Sketchpad {
     this.draw = null
 
     // WHAT THE FUCK: 在不绑定this的情况下, this.resize函数会报错
-    this.animationDelay = function () {
+    this.animationDelay = function (): void {
       this.resize(Date.now)
     }.bind(this)
 
@@ -50,7 +50,7 @@ class Sketchpad {
     this.context.scale(DEVICE_PIXEL_RATIO, DEVICE_PIXEL_RATIO)
   }
 
-  private init(instance) {
+  private init(instance): void {
     eventsInit(instance)
   }
 
@@ -94,7 +94,7 @@ class Sketchpad {
     this.clear()
 
     this.features.forEach(
-      function (feature) {
+      function (feature): void {
         feature.render(this.context)
       }.bind(this)
     )
@@ -130,7 +130,7 @@ class Sketchpad {
   /**
    * 强制重新计算画板容器大小
    */
-  protected resize() {
+  protected resize(): void {
     const targetElement: HTMLElement = this.getContainer()
     const computedStyle: CSSStyleDeclaration = getComputedStyle(targetElement)
     const canvas: HTMLCanvasElement = this.getCanvas()
@@ -160,7 +160,7 @@ class Sketchpad {
     this.triggerResize()
   }
 
-  private triggerResize() {
+  private triggerResize(): void {
     requestAnimationFrame(this.animationDelay)
   }
 }

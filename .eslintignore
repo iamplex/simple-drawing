@@ -1,2 +1,4 @@
-examples/assets
+rollup.config.js
+jest.config.js
 build/
+examples/assets

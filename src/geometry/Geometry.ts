@@ -3,11 +3,11 @@ import { Coordinate } from './Coordinate'
 
 abstract class Geometry {
   protected coordinates: Array<Coordinate>
-  protected style: Array<Object>
+  protected style: Record<string, object>
 
   constructor() {
     this.coordinates = []
-    this.style = []
+    this.style = {}
   }
 
   protected abstract render(ctx: CanvasRenderingContext2D): void
@@ -18,11 +18,11 @@ abstract class Geometry {
     return this.coordinates && this.coordinates.slice()
   }
 
-  public setCoordinates(coordinates: Array<Coordinate>) {
+  public setCoordinates(coordinates: Array<Coordinate>): void {
     this.coordinates = coordinates
   }
 
-  public setStyle(style: Array<Object>) {
+  public setStyle(style: Record<string, object>): void {
     this.style = style
   }
 }
