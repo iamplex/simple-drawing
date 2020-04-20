@@ -1,8 +1,16 @@
 {
   "compilerOptions": {
-    "outDir": "./build",
     "target": "ESNext",
-    "declaration": true
+    "noEmit": true,
+    "lib": ["esnext", "dom"],
+
+    /* Additional Checks */
+    "noUnusedLocals": true /* 若有未使用的局部变量则抛错 */,
+    "noUnusedParameters": true /* 若有未使用的局部变量则抛错 */,
+    "noImplicitReturns": true /* 不是函数的所有返回路径都有返回值时报错 */,
+    "noFallthroughCasesInSwitch": true /* 报告switch语句的fallthrough错误。（即，不允许switch的case语句贯穿）*/,
+    "noEmitOnError": true /* 报错时不生成输出文件*/,
+    "sourceMap": true
   },
-  "include": ["./src/**/*"]
+  "include": ["src/**/*"]
 }
