@@ -10,7 +10,7 @@
     "build"
   ],
   "scripts": {
-    "test": "eslint src examples",
+    "test": "npm run lint",
     "lint": "eslint -c .eslintrc.js src/**/*",
     "dev": "npx http-server -o & rollup -wc rollup.config.js",
     "build": "npm run lint && rollup -c rollup.config.js"
