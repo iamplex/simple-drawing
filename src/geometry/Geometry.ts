@@ -3,7 +3,7 @@ import { Coordinate } from './Coordinate'
 
 abstract class Geometry {
   protected coordinates: Array<Coordinate>
-  protected style: Array<object>
+  protected style: Array<Object>
 
   constructor() {
     this.coordinates = []
@@ -14,15 +14,15 @@ abstract class Geometry {
 
   public abstract getType(): GeometryType
 
-  public getCoordinates() {
-    return this.coordinates.slice()
+  public getCoordinates(): Array<Coordinate> {
+    return this.coordinates && this.coordinates.slice()
   }
 
   public setCoordinates(coordinates: Array<Coordinate>) {
     this.coordinates = coordinates
   }
 
-  public setStyle(style) {
+  public setStyle(style: Array<Object>) {
     this.style = style
   }
 }

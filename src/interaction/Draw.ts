@@ -15,17 +15,17 @@ class Draw {
   /**
    * 当前绘制的图形类型
    */
-  private type: GeometryType
+  type: GeometryType
 
   /**
    * 是否手绘模式
    */
-  private isFreehand: boolean
+  isFreehand: boolean
 
   /**
    * 是否正在绘制
    */
-  private isDrawing: boolean
+  isDrawing: boolean
 
   /**
    * 图形的坐标集合
@@ -62,10 +62,10 @@ class Draw {
     this.type = typeof options === 'string' ? options : options.type
     this.isFreehand = options.freehand !== undefined ? options.freehand : false
     this.isDrawing = false
-    this.sketchCoords
+    this.sketchCoords = []
     this.sketchFeature
     this.context
-    this.features
+    this.features = []
 
     this.type === GeometryType.POINT && (this.geometryConstructor = Point)
     this.type === GeometryType.CIRCLE && (this.geometryConstructor = Circle)
@@ -85,31 +85,10 @@ class Draw {
   }
 
   /**
-   * 获取手绘状态
-   */
-  getFreehandState(): boolean {
-    return this.isFreehand
-  }
-
-  /**
-   * 设置手绘状态
-   */
-  setFreehandState(state: boolean): void {
-    this.isFreehand = state
-  }
-
-  /**
-   * 设置绘制状态
-   */
-  setDrawingState(state: boolean): void {
-    this.isDrawing = state
-  }
-
-  /**
    * 开始绘制图形
    */
   startDrawing(coordinate: Coordinate): void {
-    this.setDrawingState(true)
+    this.isDrawing = true
 
     this.sketchCoords = [coordinate]
 
@@ -168,7 +147,7 @@ class Draw {
    * 图形绘制完成
    */
   finishDrawing(): void {
-    this.setDrawingState(false)
+    this.isDrawing = false
 
     const drawType = this.type
     const geomType = this.sketchFeature.getType()

@@ -1,14 +1,5 @@
 import GeometryType from '../geometry/GeometryType.js'
 
-interface Style {
-  fill: string
-  stroke: string
-  lineWidth: number
-  lineCap: string
-  lineJoin: string
-  miterLimit: number
-}
-
 const defaultFillStyle = 'rgba(0, 0, 0, 1)'
 const defaultStrokeStyle = 'rgba(0, 0, 0, 1)'
 const defaultLineWidth = 1

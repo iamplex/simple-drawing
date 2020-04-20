@@ -11,7 +11,8 @@ export function eventsInit(instance) {
   function pointerup() {
     const draw = instance.getDraw()
 
-    if (!draw || !draw.isFreehand || draw.type === GeometryType.POINT) return
+    if (!draw || !draw.getFreehandState() || draw.type === GeometryType.POINT)
+      return
 
     draw.finishDrawing()
     instance.render()
