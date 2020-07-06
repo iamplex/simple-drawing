@@ -22,3 +22,11 @@
 //   childCtor.prototype = Object.create(parentCtor.prototype)
 //   childCtor.prototype.constructor = childCtor
 // }
+
+export function isUndef(v: unknown): boolean {
+  return v === void 0 || v === null
+}
+
+export function isDef(v: unknown): boolean {
+  return v !== void 0 && v !== null
+}

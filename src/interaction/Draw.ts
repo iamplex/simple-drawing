@@ -138,9 +138,7 @@ class Draw {
     this.sketchCoords.push(coordinate)
     this.sketchFeature.setCoordinates(this.sketchCoords)
 
-    if (this.isFreehand) {
-      this.sketchFeature.render(this.context)
-    }
+    this.isFreehand && this.sketchFeature.render(this.context)
   }
 
   /**

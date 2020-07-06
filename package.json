@@ -20,7 +20,7 @@
     "url": "git+https://github.com/iamplex/SimpleDrawing.git"
   },
   "keywords": [
-    "javascript",
+    "typescript",
     "canvas",
     "draw",
     "sketch"

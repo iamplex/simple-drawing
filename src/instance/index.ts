@@ -27,9 +27,9 @@ class Sketchpad {
     this.viewport.style.touchAction = 'none'
 
     this.canvas = this.context.canvas
+    this.canvas.style.display = 'block'
     this.canvas.style.width = '100%'
     this.canvas.style.height = '100%'
-    this.canvas.style.display = 'block'
 
     this.viewport.insertBefore(this.canvas, this.viewport.firstChild)
     this.container.appendChild(this.viewport)

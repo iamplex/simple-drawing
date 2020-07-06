@@ -4,7 +4,7 @@ import { createDefaultStyle, renderStyle } from '../style/Style.js'
 import { Coordinate } from './Coordinate.js'
 
 class Point extends Geometry {
-  private radius = 6
+  private radius: number
 
   constructor(coordinates?: Array<Coordinate>) {
     super()
