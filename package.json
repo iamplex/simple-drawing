@@ -1,6 +1,6 @@
 {
   "name": "simple-drawing",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "一个模仿Openlayers绘图功能的library",
   "main": "build/sd.js",
   "directories": {
